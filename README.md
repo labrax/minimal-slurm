@@ -4,7 +4,7 @@ This is my minimal setup to get slurm running both the compute and the controlle
 
 Some useful references:
 - a docker image for slurm: https://github.com/SciDAS/slurm-in-docker this image contains each node type of slurm separated
-- a reference for setup in ubuntu: https://github.com/mknoxnv/ubuntu-slurm
+- a reference for setup in ubuntu: https://github.com/mknoxnv/ubuntu-slurm (they contain the systemd.service file)
 - slurm download page: https://www.schedmd.com/downloads.php
 - quickstart: https://slurm.schedmd.com/quickstart_admin.html
 - slurm configuration: https://slurm.schedmd.com/slurm.conf.html
@@ -41,12 +41,12 @@ ldconfig -n /usr/local/lib/slurm # this is to link the used library
 
 ## Settings
 
-The file /doc/html/configurator.html can be used to set a configuration, check the bold names on the slurm configuration link above. The configuration for the default amount of memory per task needs to be defined manually (**DefMemPerCPU**), otherwise (value 0) it will use all the node memory. If using my sample slurm.conf, set the node name correctly in the beginning **SlurmctldHost=main-kek**. In the end fix the name and other settings as well: 
+The file /slurm/slurm-19.05.1-2/doc/html/configurator.html can be used to create the configuration file. If there is any issue setting it, check the bold names on the slurm configuration link above. The configuration for the default amount of memory per task needs to be defined manually (**DefMemPerCPU**), otherwise (value 0) it will use all the node memory. If using my sample slurm.conf, set the node name correctly in the beginning **SlurmctldHost=main-kek**. In the end fix the name and other settings as well: 
 
 **NodeName**=main-kek **CPUs**=4 **RealMemory**=15500 **Sockets**=4 **CoresPerSocket**=1 **ThreadsPerCore**=1 State=UNKNOWN
 PartitionName=showtime Nodes=**main-kek** Default=YES MaxTime=INFINITE State=UP
 
-Mode the files slurm.conf and cgroup.conf to /usr/local/etc/slurm.conf and /usr/local/etc/cgroup.conf
+Move the files slurm.conf and cgroup.conf to /usr/local/etc/slurm.conf and /usr/local/etc/cgroup.conf
 
 ## Auto-startup
 
@@ -61,11 +61,11 @@ systemctl start slurmctld
 systemctl enable slurmd
 systemctl start slurmd
 # other useful commands are:
-systemctl status slurmctld
-journalctl -u slurmctld.service -b
+systemctl status slurmctld # show the status of the service
+journalctl -u slurmctld.service -b #print the log since the boot
 ```
 
-## Some useful commands
+## Some useful slurm commands
 
 ```
 sinfo
@@ -73,5 +73,5 @@ scontrol update NodeName=vvv-slurm State=RESUME
 squeue
 srun --pty /bin/bash
 scancel -H jid
-scontrol show node vvv-slurm
+scontrol show node main-kek #show information the node "main-kek"
 ```
