@@ -16,7 +16,7 @@ Some useful references:
 ## Required packages
 apt-get update && apt-get upgrade
 # When installing mailutils you may set it as "Local only".
-apt-get install build-essential python libmunge-dev libmunge2 mailutils
+apt-get install build-essential python munge libmunge-dev libmunge2 mailutils
 # We will create user, folders and change permissions
 adduser slurm #any pass will suffice
 mkdir -p /slurm/state
