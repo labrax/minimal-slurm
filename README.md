@@ -27,10 +27,10 @@ chown slurm /slurm/state/slurmd
 chgrp slurm /slurm/state/slurmd
 cd /slurm
 # get the latest slurm on https://www.schedmd.com/downloads.php - PLEASE NOTE THAT THIS WILL CHANGE THE CONFIG FILE
-wget https://download.schedmd.com/slurm/slurm-19.05.1-2.tar.bz2
+wget https://download.schedmd.com/slurm/slurm-21.08.5.tar.bz2
 # unzip the file
 tar -xvf slurm*
-cd slurm-19.05.1-2
+cd slurm-21.08.5
 # configure for compilation
 ./configure
 # compile, instead of 6 use a number slightly higher than the number of cpu cores available
